@@ -47,7 +47,7 @@
                 <div class="my-2 p-4">
                     <b class="block font-bold text-xs">Which language the reply should be drafted in</b>
                     <select v-model="language" class="bg-gray-50 rounded border border-gray-200 p-2 mt-1 w-full">
-                        <option value="auto">Automatisch</option>
+                        <option value="null">Automatisch</option>
                         <option value="de">Deutsch</option>
                         <option value="en">Englisch</option>
                         <option value="es">Spanisch</option>
@@ -122,7 +122,7 @@ export default {
             smartSnippetReply: '',
             signature: '',
             replyTo: '',
-            language: 'auto',
+            language: null,
         }
     },
     created() {
@@ -202,7 +202,7 @@ export default {
                     "business_type": "MyHotelName",
                     "tone_of_voice": 1,
                     "response_length": 1,
-                    "reply_language": this.language.toUpperCase(),
+                    "reply_language": this.language == null ? null : this.language.toUpperCase(),
                     "reply_to": this.replyTo,
                     "sign_offs": [
                         this.signature
