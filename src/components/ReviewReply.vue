@@ -19,12 +19,42 @@
             <div class="border border-gray-200 rounded mb-6">
                 <h2 class="font-bold uppercase text-xs p-4 bg-gray-50 border-b border-gray-200 rounded-t">Smart Snippets (optional)</h2>
                 <div class="my-2 p-4">
-                    <b class="block font-bold text-xs">Description of complaint or praise</b>                
+                    <b class="block font-bold text-xs">Description of complaint or praise</b>
                     <input type="text" v-model="smartSnippetTopic" class="bg-gray-50 rounded border border-gray-200 p-2 mt-1 w-full" />
                     <b class="block font-bold text-xs mt-4">Response snippet</b>
                     <textarea v-model="smartSnippetReply" rows="3" class="bg-gray-50 rounded border border-gray-200 p-2 w-full h-full mt-1" />
                 </div>
             </div>
+
+            <div class="border border-gray-200 rounded mb-6">
+                <h2 class="font-bold uppercase text-xs p-4 bg-gray-50 border-b border-gray-200 rounded-t">Signature (optional)</h2>
+                <div class="my-2 p-4">
+                    <b class="block font-bold text-xs">Personalized signature to end the review</b>
+                    <input type="text" v-model="signature" class="bg-gray-50 rounded border border-gray-200 p-2 mt-1 w-full" />
+                </div>
+            </div>
+
+            <div class="border border-gray-200 rounded mb-6">
+                <h2 class="font-bold uppercase text-xs p-4 bg-gray-50 border-b border-gray-200 rounded-t">Reply to (optional)</h2>
+                <div class="my-2 p-4">
+                    <b class="block font-bold text-xs">Name of the person writing the response</b>
+                    <input type="text" v-model="replyTo" class="bg-gray-50 rounded border border-gray-200 p-2 mt-1 w-full" />
+                </div>
+            </div>
+
+            <div class="border border-gray-200 rounded mb-6">
+                <h2 class="font-bold uppercase text-xs p-4 bg-gray-50 border-b border-gray-200 rounded-t">Language (optional)</h2>
+                <div class="my-2 p-4">
+                    <b class="block font-bold text-xs">Which language the reply should be drafted in</b>
+                    <select v-model="language" class="bg-gray-50 rounded border border-gray-200 p-2 mt-1 w-full">
+                        <option value="auto">Automatisch</option>
+                        <option value="de">Deutsch</option>
+                        <option value="en">Englisch</option>
+                        <option value="es">Spanisch</option>
+                    </select>
+                </div>
+            </div>
+
 
             <div class="border border-gray-200 rounded mb-6">
                 <h2 class="font-bold uppercase text-xs p-4 bg-gray-50 border-b border-gray-200 rounded-t">Customer review</h2>
@@ -90,6 +120,9 @@ export default {
             jwt: '',
             smartSnippetTopic: '',
             smartSnippetReply: '',
+            signature: '',
+            replyTo: '',
+            language: 'auto',
         }
     },
     created() {
@@ -169,9 +202,10 @@ export default {
                     "business_type": "MyHotelName",
                     "tone_of_voice": 1,
                     "response_length": 1,
-                    "reply_to": "Theresa",
+                    "reply_language": this.language.toUpperCase(),
+                    "reply_to": this.replyTo,
                     "sign_offs": [
-                        "Sunny greetings,\nMyHotelName"
+                        this.signature
                     ],
                     "custom_topic_replies": [{
                         "custom_reply": this.smartSnippetReply,
