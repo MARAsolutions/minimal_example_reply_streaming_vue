@@ -35,6 +35,14 @@
             </div>
 
             <div class="border border-gray-200 rounded mb-6">
+                <h2 class="font-bold uppercase text-xs p-4 bg-gray-50 border-b border-gray-200 rounded-t">Business type (optional)</h2>
+                <div class="my-2 p-4">
+                    <b class="block font-bold text-xs">What business is being reviewed</b>
+                    <input type="text" v-model="business_type" class="bg-gray-50 rounded border border-gray-200 p-2 mt-1 w-full" />
+                </div>
+            </div>
+
+            <div class="border border-gray-200 rounded mb-6">
                 <h2 class="font-bold uppercase text-xs p-4 bg-gray-50 border-b border-gray-200 rounded-t">Reply to (optional)</h2>
                 <div class="my-2 p-4">
                     <b class="block font-bold text-xs">Name of the person writing the response</b>
@@ -47,7 +55,7 @@
                 <div class="my-2 p-4">
                     <b class="block font-bold text-xs">Which language the reply should be drafted in</b>
                     <select v-model="language" class="bg-gray-50 rounded border border-gray-200 p-2 mt-1 w-full">
-                        <option value="null">Automatisch</option>
+                        <option value="null">Automatic</option>
                         <option value="de">Deutsch</option>
                         <option value="en">Englisch</option>
                         <option value="es">Spanisch</option>
@@ -82,16 +90,21 @@
             <div class="border border-gray-200 rounded mt-4">
                 <h2 class="font-bold uppercase text-xs p-4 bg-gray-50 border-b border-gray-200 rounded-t">Summary</h2>
                 <div class="p-4">
+                    <p v-html="metadata.summary">
+                    </p>
+                </div>
+            </div>
+
+            <div class="border border-gray-200 rounded mt-4">
+                <h2 class="font-bold uppercase text-xs p-4 bg-gray-50 border-b border-gray-200 rounded-t">Applied Smart Snippets</h2>
+                <div class="p-4">
                     <template v-for="(value, key) in metadata">
                         <template v-if="typeof value === 'object'">
                             <template v-for="(innerValue, innerKey) in value" :key="innerKey">
                                 <p>
-                                    <b>{{ innerKey }}:</b> <span v-html="formatValue(innerValue)"></span>
+                                    <b> Snippet #{{ parseInt(innerKey) + 1 }}:</b> <span v-html="formatValue(innerValue)"></span>
                                 </p>
                             </template>
-                        </template>
-                        <template v-else>
-                            <p v-html="formatValue(value)" :key="key"></p>
                         </template>
                     </template>
                 </div>
@@ -109,7 +122,7 @@ export default {
     name: 'ReviewReply',
     data() {
         return {
-            input: 'Great hotel, but the check-in was very slow. The location is perfect for a weekend trip to London.',
+            input: 'Tanto las instalaciones como el personal estuvieron muy por encima de nuestras expectativas. La ubicación de este hotel es estratégica, en el centro de los lugares que puedes visitar... y si no, el transporte estaba a unos pasos. La única pega fue, que faltaba un desayuno vegano.',
             channelName: '',
             channel: [],
             messages: '',
@@ -118,10 +131,11 @@ export default {
             isCopied: false,
             apiUrl: '',
             jwt: '',
-            smartSnippetTopic: '',
-            smartSnippetReply: '',
-            signature: '',
-            replyTo: '',
+            smartSnippetTopic: 'no vegan breakfast',
+            smartSnippetReply: 'We provide vegan breakfast, but you need to tell us in advance.',
+            business_type: 'Syte Hotel Mannheim',
+            signature: 'Your Syte Hotel Mannheim',
+            replyTo: 'Ingo',
             language: null,
         }
     },
@@ -199,7 +213,7 @@ export default {
                     "user_id": "",
                     "profile_id": "",
                     "reply_model_id": "latest-stable-version",
-                    "business_type": "MyHotelName",
+                    "business_type": this.business_type,
                     "tone_of_voice": 1,
                     "response_length": 1,
                     "reply_language": this.language == null ? null : this.language.toUpperCase(),

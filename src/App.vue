@@ -8,7 +8,13 @@
         <div class="my-4">
             <h1 class="font-black text-xl">MARA Vue example</h1>
             <p class="text-gray-500">
-                The following app is a minimal example for the streaming solution of review replies with MARA. If you have any questions, please contact i.lange@mara.solutions. The JWT token provided here is generated in production in the app and refreshed as needed. Normally, the Smart Snippets are sent via the Settings Profile. This is also sent directly to the API for simplification.
+                The following app is a minimal example of streaming review replies with MARA. If you have any questions, please contact i.lange@mara.solutions.
+            </p>
+            <p class="text-gray-500 mt-2">
+                The JWT token provided manually here should be generated and updated by your backend in production as needed.
+            </p>
+            <p class="text-gray-500 mt-2">
+                In production, the smart snippets, which can be set directly here for simplicity, should be sent via a settings profile.
             </p>
         </div>
         <div class="mt-6">
