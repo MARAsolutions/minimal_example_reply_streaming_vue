@@ -45,7 +45,7 @@
             <div class="border border-gray-200 rounded mb-6">
                 <h2 class="font-bold uppercase text-xs p-4 bg-gray-50 border-b border-gray-200 rounded-t">Reply to (optional)</h2>
                 <div class="my-2 p-4">
-                    <b class="block font-bold text-xs">Name of the person writing the response</b>
+                    <b class="block font-bold text-xs">Person to address in the reply</b>
                     <input type="text" v-model="replyTo" class="bg-gray-50 rounded border border-gray-200 p-2 mt-1 w-full" />
                 </div>
             </div>
